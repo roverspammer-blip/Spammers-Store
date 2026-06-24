@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPAMMERS STORE | Premium Services</title>
+    <link rel="icon" type="image/jpeg" href="https://i.postimg.cc/9QK3xHXX/photo-2026-04-13-22-22-28.jpg">
+    <style>
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --accent: #38bdf8;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #4ade80;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --purple-accent: #a855f7;
+            --green-accent: #10b981;
+            --premium-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-light); line-height: 1.6; padding-bottom: 80px; }
+        
+        nav { background: var(--bg-card); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; position: sticky; top: 0; z-index: 100; }
+        nav .logo { font-size: 22px; font-weight: bold; color: var(--accent); letter-spacing: 1px; }
+
+        .cart-icon-container { position: relative; cursor: pointer; background: #334155; padding: 10px 15px; border-radius: 8px; display: flex; align-items: center; gap: 8px; transition: background 0.3s; }
+        .cart-icon-container:hover { background: #475569; }
+        .cart-badge { background: var(--danger); color: #fff; font-size: 12px; font-weight: bold; padding: 2px 7px; border-radius: 50%; position: absolute; top: -8px; right: -8px; }
+
+        .store-banner { 
+            max-width: 1200px; 
+            margin: 20px auto; 
+            height: 450px; 
+            background: url('https://i.postimg.cc/9QK3xHXX/photo-2026-04-13-22-22-28.jpg') center center / cover no-repeat;
+            border-radius: 12px; 
+            border: 2px solid #334155;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+        
+        @media (max-width: 768px) {
+            .store-banner { height: 250px; margin: 10px auto; }
+        }
+
+        /* تعديل جوهري لمنع الـ Scrollbar تماماً وجعل التبويبات تترتب تحت بعضها بنظام احترافي */
+        .tabs-container { 
+            max-width: 1200px; 
+            margin: 25px auto; 
+            padding: 0 20px; 
+            display: flex; 
+            flex-wrap: wrap; /* يخليهم ينزلوا سطر جديد تلقائياً بدل السكرول البايخ */
+            gap: 12px; 
+            justify-content: center;
+        }
+
+        .tab-btn { 
+            background: var(--bg-card); 
+            border: 1px solid #334155; 
+            color: var(--text-muted); 
+            padding: 12px 24px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 14px;
+            transition: all 0.25s ease; 
+            flex: 1 1 auto; /* يجعل الأزرار تتمدد بشكل متناسق ويملا الفراغات */
+            text-align: center;
+            min-width: 180px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 480px) {
+            .tab-btn {
+                flex: 1 1 100%; /* في الشاشات الصغيرة جداً هينزلوا تحت بعض تماماً زي نظام القوائم */
+            }
+        }
+
+        .tab-btn.active { background: var(--accent); color: var(--bg-main); border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(56, 189, 248, 0.3); }
+        
+        .tab-btn.request-leads-tab { border-color: var(--warning); color: var(--warning); }
+        .tab-btn.request-leads-tab.active { background: var(--warning); color: var(--bg-main); box-shadow: 0 6px 12px rgba(245, 158, 11, 0.3); }
+        
+        .tab-btn.request-config-tab { border-color: var(--purple-accent); color: var(--purple-accent); }
+        .tab-btn.request-config-tab.active { background: var(--purple-accent); color: var(--text-light); box-shadow: 0 6px 12px rgba(168, 85, 247, 0.3); }
+
+        .tab-btn.request-general-tab { border-color: var(--green-accent); color: var(--green-accent); }
+        .tab-btn.request-general-tab.active { background: var(--green-accent); color: var(--bg-main); box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3); }
+
+        .store-section { max-width: 1200px; margin: 20px auto 40px; padding: 0 20px; display: none; }
+        .store-section.active { display: block; }
+        
+        .section-title { font-size: 24px; color: var(--text-light); margin-bottom: 20px; border-left: 5px solid var(--accent); padding-left: 15px; text-transform: uppercase; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+
+        .request-box { background: var(--bg-card); border: 1px solid #334155; border-radius: 12px; padding: 30px; max-width: 700px; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .request-box.leads-border { border-color: var(--warning); }
+        .request-box.config-border { border-color: var(--purple-accent); }
+        .request-box.general-border { border-color: var(--green-accent); }
+
+        .featured-wrapper { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .featured-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 2px solid var(--warning) !important; position: relative; overflow: hidden; }
+        .featured-badge { position: absolute; top: 12px; right: 12px; background: var(--premium-gradient); color: #fff; font-size: 11px; font-weight: bold; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; }
+
+        .product-card { background: var(--bg-card); border: 1px solid #334155; border-radius: 10px; padding: 25px; text-align: center; transition: transform 0.3s, border-color 0.3s; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .product-card h3 { font-size: 20px; margin-bottom: 10px; color: #e2e8f0; }
+        
+        .product-card p { 
+            color: var(--text-muted); 
+            font-size: 14px; 
+            margin-bottom: 15px; 
+            min-height: 42px; 
+            white-space: pre-line; 
+            text-align: center;
+        }
+        
+        .price-container { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .product-card .price { font-size: 26px; color: var(--success); font-weight: bold; }
+        .product-card .old-price { font-size: 18px; color: var(--danger); text-decoration: line-through; opacity: 0.6; }
+
+        .qty-selector { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 15px; }
+        .qty-btn { background: #334155; color: #fff; border: none; width: 30px; height: 30px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .qty-input { width: 50px; text-align: center; padding: 4px; margin: 0; background: var(--bg-main); border: 1px solid #334155; color: #fff; border-radius: 4px; }
+
+        .stock-status { font-size: 12px; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; }
+        .stock-status.in-stock { color: var(--success); }
+        .stock-status.out-stock { color: var(--danger); }
+
+        .btn-action { display: block; width: 100%; padding: 12px; background: var(--accent); color: var(--bg-main); border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-decoration: none; transition: background 0.3s; text-align: center; }
+        .btn-action:hover { background: #0ea5e9; }
+        .btn-action:disabled { background: #334155; color: var(--text-muted); cursor: not-allowed; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(5px); justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
+        .modal-content { background: var(--bg-card); border: 1px solid #334155; padding: 30px; border-radius: 12px; max-width: 550px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; color: var(--text-muted); cursor: pointer; }
+
+        label { display: block; margin: 12px 0 6px; color: var(--text-muted); font-size: 14px; }
+        input, select, textarea { width: 100%; padding: 12px; background: var(--bg-main); border: 1px solid #334155; border-radius: 6px; color: #fff; margin-bottom: 10px; font-size: 14px; }
+        textarea { resize: vertical; min-height: 100px; }
+
+        .cart-item-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding: 10px 0; font-size: 14px; }
+        .cart-item-remove { color: var(--danger); cursor: pointer; font-weight: bold; }
+
+        .crypto-box { background: var(--bg-main); padding: 15px; border-radius: 8px; border: 1px dashed var(--accent); margin: 15px 0; text-align: center; }
+        .crypto-address { font-family: monospace; color: var(--success); font-size: 13px; word-break: break-all; margin: 5px 0; background: #0f172a; padding: 8px; border-radius: 4px; }
+
+        .processing-container { display: none; text-align: center; padding: 20px; }
+        .loader-bar { width: 100%; background-color: var(--bg-main); height: 8px; border-radius: 4px; margin: 20px 0; overflow: hidden; position: relative; }
+        .loader-progress { width: 45%; background-color: var(--accent); height: 100%; border-radius: 4px; animation: loadingSim 2s infinite ease-in-out; }
+        
+        @keyframes loadingSim {
+            0% { left: -45%; }
+            100% { left: 100%; }
+        }
+
+        .status-badge { display: inline-block; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 13px; background: rgba(245, 158, 11, 0.2); color: var(--warning); margin-bottom: 15px; }
+
+        .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        footer { text-align: center; padding: 40px; color: var(--text-muted); border-top: 1px solid #334155; margin-top: 40px; }
+        footer a { color: var(--accent); text-decoration: none; }
+
+        .switch-container { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .switch-container input { width: auto; margin: 0; }
+        
+        .admin-table-btn { border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">SPAMMERS STORE</div>
+        <div class="cart-icon-container" onclick="openCartModal()">
+            <span>🛒 Basket</span>
+            <span class="cart-badge" id="globalCartCount">0</span>
+        </div> 
+    </nav>
+
+    <div class="store-banner"></div>
+
+    <!-- PREMIUM FEATURED PRODUCTS SECTION -->
+    <div class="featured-wrapper" id="featured-wrapper">
+        <h2 class="section-title" style="color: var(--warning); border-left-color: var(--warning);">⚡ Featured Products</h2>
+        <div class="products-grid" id="featured-products-grid"></div>
+    </div>
+
+    <!-- DYNAMIC DASHBOARD TABS (المجموعة المرتبة بدون سكرول) -->
+    <div class="tabs-container" id="tabs-navigation"></div>
+
+    <div id="store-front"></div>
+
+    <!-- FIXED CUSTOM LEADS REQUEST SECTION -->
+    <div id="request-section" class="store-section">
+        <div class="request-box leads-border">
+            <h2 style="color: var(--warning); margin-bottom: 10px; text-align: center; font-size: 24px;">🎯 Custom Leads Request</h2>
+            <p style="color: var(--text-muted); font-size: 14px; text-align: center; margin-bottom: 25px;">
+                Can't find your specific targeted country or domain? Submit a custom request below. 
+                Our admin node will review and approve your order requirements within <strong style="color: #fff;">24 Hours</strong>.
+            </p>
+            
+            <form id="customLeadsForm">
+                <label>1. Your Telegram Username / Contact Info:</label>
+                <input type="text" id="reqContact" placeholder="e.g., @YourUsername" required>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label>2. Targeted Country:</label>
+                        <input type="text" id="reqCountry" placeholder="e.g., USA, Germany, France" required>
+                    </div>
+                    <div>
+                        <label>3. Target Domain (Optional):</label>
+                        <input type="text" id="reqDomain" placeholder="e.g., comcast.net, yahoo.com, All">
+                    </div>
+                </div>
+
+                <label>4. Additional Specifications / Requirements:</label>
+                <textarea id="reqDesc" placeholder="Describe the type of combination or specific validation matrix you need..."></textarea>
+
+                <label>5. Your Offered Price / Budget ($):</label>
+                <input type="number" id="reqBudget" placeholder="e.g., 50" min="5" required>
+
+                <button type="button" class="btn-action" style="background: var(--warning); color: #0f172a; margin-top: 15px;" onclick="submitCustomRequest()">
+                    Submit Request For Approval
+                </button>
+            </form>
+            
+            <div id="requestSuccessMsg" style="display:none; text-align:center; padding: 20px 0;">
+                <div class="status-badge" style="background: rgba(74, 222, 128, 0.15); color: var(--success);">PENDING ADMIN APPROVAL</div>
+                <h3 style="color:#fff; margin-bottom:10px;">Request Successfully Dispatched!</h3>
+                <p style="color: var(--text-muted); font-size:13px; line-height:1.5;">
+                    Your parameters have been synchronized to the secure console layer. Please contact our main pipeline 
+                    to finalize verification. Approval and delivery take up to 24 Hours.
+                </p>
+                <button class="btn-action" style="margin-top:20px; font-size:13px; padding:8px;" onclick="resetRequestForm()">Submit Another Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW FIXED CUSTOM CONFIG REQUEST SECTION -->
+    <div id="config-request-section" class="store-section">
+        <div class="request-box config-border">
+            <h2 style="color: var(--purple-accent); margin-bottom: 10px; text-align: center; font-size: 24px;">🛠️ Custom Config Request</h2>
+            <p style="color: var(--text-muted); font-size: 14px; text-align: center; margin-bottom: 25px;">
+                Need a private configuration for a specific checker or tool? Submit the website details below. 
+                Our team will review code compatibility and respond within <strong style="color: #fff;">24 Hours</strong>.
+            </p>
+            
+            <form id="customConfigForm">
+                <label>1. Your Telegram Username / Contact Info:</label>
+                <input type="text" id="cfgContact" placeholder="e.g., @YourUsername" required>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label>2. Config Name / Cracker Tool:</label>
+                        <input type="text" id="cfgName" placeholder="e.g., OpenBullet, SilverBullet, BLiTZ" required>
+                    </div>
+                    <div>
+                        <label>3. Target Website URL / Link:</label>
+                        <input type="url" id="cfgUrl" placeholder="https://example.com/login" required>
+                    </div>
+                </div>
+
+                <label>4. Custom Capture / Specific Requirements (Optional):</label>
+                <textarea id="cfgDesc" placeholder="Mention any required captures like Points, Expiry Date, Plan type, or 2FA bypass notes..."></textarea>
+
+                <label>5. Your Offered Price / Budget ($):</label>
+                <input type="number" id="cfgBudget" placeholder="e.g., 75" min="5" required>
+
+                <button type="button" class="btn-action" style="background: var(--purple-accent); color: #fff; margin-top: 15px;" onclick="submitConfigRequest()">
+                    Submit Config Request
+                </button>
+            </form>
+            
+            <div id="configSuccessMsg" style="display:none; text-align:center; padding: 20px 0;">
+                <div class="status-badge" style="background: rgba(168, 85, 247, 0.15); color: var(--purple-accent);">PENDING ADMIN APPROVAL</div>
+                <h3 style="color:#fff; margin-bottom:10px;">Config Request Dispatched!</h3>
+                <p style="color: var(--text-muted); font-size:13px; line-height:1.5;">
+                    Your targeted endpoint data has been delivered to the developer. Verification and 
+                    structural security checks take up to 24 Hours.
+                </p>
+                <button class="btn-action" style="margin-top:20px; font-size:13px; padding:8px; background:var(--purple-accent); color:#fff;" onclick="resetConfigForm()">Submit Another Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW FIXED GENERAL PRODUCT REQUEST SECTION -->
+    <div id="general-request-section" class="store-section">
+        <div class="request-box general-border">
+            <h2 style="color: var(--green-accent); margin-bottom: 10px; text-align: center; font-size: 24px;">🛒 Custom Product Request</h2>
+            <p style="color: var(--text-muted); font-size: 14px; text-align: center; margin-bottom: 25px;">
+                Looking for an unlisted product, service, exploit, or custom asset? Describe it below. 
+                Our support desk will check our infrastructure and get back to you within <strong style="color: #fff;">24 Hours</strong>.
+            </p>
+            
+            <form id="customGeneralForm">
+                <label>1. Your Telegram Username / Contact Info:</label>
+                <input type="text" id="genContact" placeholder="e.g., @YourUsername" required>
+
+                <label>2. Product / Service Name:</label>
+                <input type="text" id="genName" placeholder="e.g., Office365 Validated Session Cookies, Custom RDP" required>
+
+                <label>3. Detailed Requirements & Description:</label>
+                <textarea id="genDesc" placeholder="Please list out exactly what features, guarantees, or volume you are expecting from this custom order asset..." required></textarea>
+
+                <label>4. Your Max Allocated Budget ($):</label>
+                <input type="number" id="genBudget" placeholder="e.g., 120" min="5" required>
+
+                <button type="button" class="btn-action" style="background: var(--green-accent); color: #fff; margin-top: 15px;" onclick="submitGeneralRequest()">
+                    Submit General Request
+                </button>
+            </form>
+            
+            <div id="generalSuccessMsg" style="display:none; text-align:center; padding: 20px 0;">
+                <div class="status-badge" style="background: rgba(16, 185, 129, 0.15); color: var(--green-accent);">PENDING PIPELINE REVIEW</div>
+                <h3 style="color:#fff; margin-bottom:10px;">General Request Registered!</h3>
+                <p style="color: var(--text-muted); font-size:13px; line-height:1.5;">
+                    Your specialized product order script has bypassed standard routing and hit the central queue dashboard. 
+                    Please wait for an admin connection message on Telegram.
+                </p>
+                <button class="btn-action" style="margin-top:20px; font-size:13px; padding:8px; background:var(--green-accent); color:#fff;" onclick="resetGeneralForm()">Submit Another Request</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 SPAMMERS STORE. All Rights Reserved.</p>
+        <p>Official Support: <a href="https://t.me/MichealOFFICE365" target="_blank">@MichealOFFICE365</a></p>
+    </footer>
+
+    <!-- SHOPPING CART MODAL -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="toggleModal('cartModal', false)">&times;</span>
+            <h2 style="color: var(--accent); margin-bottom: 15px;">Your Shopping Basket</h2>
+            <div id="cartItemsList" style="margin-bottom: 20px;"></div>
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; margin-bottom: 20px; border-top: 1px solid #334155; padding-top: 10px;">
+                <span>Total Amount:</span>
+                <span style="color: var(--success);" id="cartTotalSum">$0</span>
+            </div>
+            <button class="btn-action" id="checkoutBtn" onclick="goToCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- CHECKOUT & ORDER STATUS MODAL -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="toggleModal('checkoutModal', false)">&times;</span>
+            
+            <div id="checkoutGate">
+                <h2 id="checkoutTitle" style="color: var(--accent); margin-bottom: 10px;">Crypto Gateway</h2>
+                <p style="color: var(--text-muted); font-size:14px; margin-bottom: 10px;">Send total payment to the store wallet address:</p>
+                
+                <div class="crypto-box">
+                    <strong>USDT (TRC20 Address):</strong>
+                    <div class="crypto-address" id="gatewayUsdt">Loading...</div>
+                    <strong>LTC (Litecoin Address):</strong>
+                    <div class="crypto-address" id="gatewayLtc">Loading...</div>
+                    <strong>BTC (Bitcoin Address):</strong>
+                    <div class="crypto-address" id="gatewayBtc">Loading...</div>
+                </div>
+
+                <form id="paymentForm">
+                    <label>1. Your Telegram Username / Contact Info:</label>
+                    <input type="text" id="buyerContact" placeholder="e.g., @YourUsername" required>
+
+                    <label>2. Chosen Payment Asset:</label>
+                    <select id="buyerMethod">
+                        <option value="USDT_TRC20">USDT (TRC20)</option>
+                        <option value="LTC">Litecoin (LTC)</option>
+                        <option value="BTC">Bitcoin (BTC)</option>
+                    </select>
+
+                    <label>3. Paste Transaction TxID / Reference Hash:</label>
+                    <input type="text" id="buyerTxid" placeholder="Enter transaction reference ID or Hash..." required>
+                    
+                    <button type="button" class="btn-action" style="background: var(--success); color:#0f172a; margin-top: 15px;" onclick="submitOrderToAdmin()">
+                        Submit & Verify Order
+                    </button>
+                </form>
+            </div>
+
+            <div id="processingScreen" class="processing-container">
+                <div class="status-badge" id="statusBadge">AWAITING BLOCKCHAIN CONFIRMATIONS</div>
+                <h2 style="color: #fff; font-size: 22px; margin-bottom: 10px;">Verifying Transaction Hash...</h2>
+                <p style="color: var(--text-muted); font-size: 14px;">Our security node is currently checking your TxID on the blockchain network ledger.</p>
+                
+                <div class="loader-bar">
+                    <div class="loader-progress"></div>
+                </div>
+
+                <div style="background: var(--bg-main); padding: 15px; border-radius: 8px; text-align: left; margin-bottom: 15px; border: 1px solid #334155;">
+                    <div style="font-size: 13px; margin-bottom: 5px;"><strong style="color: var(--accent);">Items Invoiced:</strong> <span id="procProdName"></span></div>
+                    <div style="font-size: 13px; margin-bottom: 5px;"><strong style="color: var(--accent);">Estimated Time:</strong> <span style="color: var(--success);">3 - 5 Minutes</span></div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 10px; line-height: 1.4;">
+                        ⚠️ <strong>Notice:</strong> Stock files deployment takes a few minutes to be fully prepared and synchronized to your account user node. Please do not refresh or close this dashboard.
+                    </div>
+                </div>
+                <p style="font-size: 12px; color: var(--text-muted);">Order Tracking ID: <span id="procTrackId" style="font-family: monospace; color: #fff;"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- OWNER ADMIN PANEL MODAL -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content" style="max-width: 850px;">
+            <span class="close-modal" onclick="toggleModal('adminModal', false)">&times;</span>
+            <h2 style="color: var(--accent); margin-bottom: 15px;">Store Management Console</h2>
+            
+            <div class="admin-grid">
+                <div>
+                    <h3 style="color: #fff; font-size:16px; margin-bottom:5px;">1. Update Store Wallets</h3>
+                    <label>Your USDT (TRC20):</label>
+                    <input type="text" id="adminUsdtWallet">
+                    <label>Your LTC Address:</label>
+                    <input type="text" id="adminLtcWallet">
+                    <label>Your BTC Address:</label>
+                    <input type="text" id="adminBtcWallet">
+
+                    <h3 style="color: #fff; font-size:16px; margin-top:15px;">2. Category Management</h3>
+                    <label>Category Title Name:</label>
+                    <input type="text" id="newSecName" placeholder="e.g., PREMIUM PACKAGES">
+                    <button type="button" class="btn-action" style="margin-bottom:15px;" onclick="createNewSection()">Add Category</button>
+                    
+                    <strong style="font-size:13px; color:var(--text-muted);">Active Categories List:</strong>
+                    <div style="max-height: 150px; overflow-y:auto; background:#0f172a; padding:8px; border-radius:6px; margin-top:5px;">
+                        <table style="width:100%; text-align:left; font-size:12px;" id="adminCategoryTable"></table>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="color: #fff; font-size:16px;">3. Post New Product</h3>
+                    <label>Category Section:</label>
+                    <select id="prodSectionSelect"></select>
+                    <div style="display:flex; gap:10px;">
+                        <div style="flex:2;">
+                            <label>Product Name:</label>
+                            <input type="text" id="prodTitle" placeholder="e.g., Comcast SMTP">
+                        </div>
+                        <div style="flex:1; display:flex; align-items:center; margin-top:25px;">
+                            <label style="display:inline; margin:0;"><input type="checkbox" id="prodFeatured"> Featured</label>
+                        </div>
+                    </div>
+                    
+                    <label>Description (Supports Line Breaks):</label>
+                    <textarea id="prodDesc" placeholder="Line 1: High validation&#10;Line 2: 100% Inbox deliverability&#10;Line 3: Clean servers" style="min-height:80px;"></textarea>
+                    
+                    <div style="display: flex; gap: 10px;">
+                        <div>
+                            <label>Current Price ($):</label>
+                            <input type="number" id="prodPrice" placeholder="15">
+                        </div>
+                        <div>
+                            <label>Old Price ($ - Opt):</label>
+                            <input type="number" id="prodOldPrice" placeholder="30">
+                        </div>
+                    </div>
+                    
+                    <div class="switch-container">
+                        <input type="checkbox" id="prodInStock" checked>
+                        <label for="prodInStock" style="margin:0;">Item In Stock & Available</label>
+                    </div>
+                    
+                    <label>Stock Quantity (Write 'unlimited' or number):</label>
+                    <input type="text" id="prodStockQty" placeholder="e.g., 50 or unlimited" value="unlimited">
+
+                    <button type="button" class="btn-action" onclick="addNewProduct()">Deploy Product</button>
+                </div>
+            </div>
+
+            <h3 style="margin-top:20px; color:#fff; font-size:16px;">4. Control Inventory, Stock & Offers</h3>
+            <div style="max-height: 200px; overflow-y:auto; background:#0f172a; padding:10px; border-radius:6px; margin-top:10px;">
+                <table style="width:100%; text-align:left; font-size:13px;" id="adminInventoryTable"></table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ADMIN_PASSWORD = "Rov@@340i";
+
+        let storeData = JSON.parse(localStorage.getItem('spammers_secure_db')) || {
+            wallets: {
+                usdt: "TEfNaGBbVq76ehdX2NM6No6HG6sWFPFUF4",
+                ltc: "LSQ18R1YGvdadqQ1p2hRHpcAN2QLhmWuBW",
+                btc: "12RbHT6wTtrenA9TkhZf2MXGe7hpaWcJ3a"
+            },
+            sections: {
+                "HACKTOOLS & SECURITY": [
+                    { id: "p1", name: "SMTP Cracker", desc: "High-Performance Private Mailer Tool.\nMulti-threaded Core Integration.\nInstant Security Bypass.", price: 45, oldPrice: 90, inStock: true, featured: true, qty: "unlimited" },
+                    { id: "p2", name: "Logs Searcher", desc: "Fast, Powerful Log Digger.\nSupports Complex Regex Filtering.", price: 30, oldPrice: 0, inStock: true, featured: false, qty: "unlimited" },
+                    { id: "p3", name: "High DA/PA cPanels", desc: "Authoritative Hosting & Control Panels.\nPerfect for landing pages deployment.", price: 15, oldPrice: 25, inStock: true, featured: false, qty: 12 }
+                ],
+                "SMTP & MAIL ACCESS": [
+                    { id: "p4", name: "Bulk SMTPs (Comcast)", desc: "Fresh & High-Volume Delivery Pipeline.\n100% Validated Realtime Logs.", price: 15, oldPrice: 30, inStock: true, featured: true, qty: "unlimited" },
+                    { id: "p5", name: "Mixed Corp Mail Access", desc: "Premium Inbound Corporate Setups.\nCustom Configured Protocols.", price: 25, oldPrice: 0, inStock: true, featured: false, qty: 5 }
+                ]
+            }
+        };
+
+        let cart = {};
+        let activeTab = Object.keys(storeData.sections)[0] || "CUSTOM_LEADS";
+
+        function saveToStorage() {
+            localStorage.setItem('spammers_secure_db', JSON.stringify(storeData));
+            renderTabs();
+            renderStorefront();
+            renderAdminControls();
+        }
+
+        function toggleModal(id, open) {
+            document.getElementById(id).style.display = open ? 'flex' : 'none';
+            if(!open && id === 'checkoutModal') {
+                document.getElementById('checkoutGate').style.display = 'block';
+                document.getElementById('processingScreen').style.display = 'none';
+            }
+        }
+
+        function checkSecretRoute() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('admin') === 'true') {
+                const pass = prompt("Enter Admin Secure Password to Access Console:");
+                if (pass === ADMIN_PASSWORD) {
+                    toggleModal('adminModal', true);
+                } else {
+                    alert("Unauthorized access attempt blocked!");
+                    window.location.href = window.location.pathname;
+                }
+            }
+        }
+
+        function changeQty(productId, amount) {
+            const input = document.getElementById(`qty-${productId}`);
+            if(!input) return;
+            let val = parseInt(input.value) + amount;
+            if(val < 1) val = 1;
+            input.value = val;
+        }
+
+        function addToCart(id, name, price) {
+            const qtyInput = document.getElementById(`qty-${id}`);
+            const qty = qtyInput ? parseInt(qtyInput.value) : 1;
+            
+            if(cart[id]) {
+                cart[id].qty += qty;
+            } else {
+                cart[id] = { name: name, price: price, qty: qty };
+            }
+            updateCartBadge();
+            alert(`Added ${qty}x ${name} to basket successfully.`);
+        }
+
+        function updateCartBadge() {
+            let count = 0;
+            Object.values(cart).forEach(item => count += item.qty);
+            document.getElementById('globalCartCount').innerText = count;
+        }
+
+        function openCartModal() {
+            const listContainer = document.getElementById('cartItemsList');
+            listContainer.innerHTML = '';
+            let total = 0;
+
+            if(Object.keys(cart).length === 0) {
+                listContainer.innerHTML = '<p style="color: var(--text-muted); text-align:center;">Your basket is completely empty.</p>';
+                document.getElementById('checkoutBtn').disabled = true;
+            } else {
+                document.getElementById('checkoutBtn').disabled = false;
+                for(const [id, item] of Object.entries(cart)) {
+                    let cost = item.price * item.qty;
+                    total += cost;
+                    listContainer.innerHTML += `
+                        <div class="cart-item-row">
+                            <div><strong>${item.name}</strong> (x${item.qty})</div>
+                            <div style="display:flex; gap:15px; align-items:center;">
+                                <span style="color: var(--success); font-weight:bold;">$${cost}</span>
+                                <span class="cart-item-remove" onclick="removeFromCart('${id}')">&times;</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            document.getElementById('cartTotalSum').innerText = `$${total}`;
+            toggleModal('cartModal', true);
+        }
+
+        function removeFromCart(id) {
+            delete cart[id];
+            updateCartBadge();
+            openCartModal();
+        }
+
+        function goToCheckout() {
+            toggleModal('cartModal', false);
+            let total = 0;
+            Object.values(cart).forEach(item => total += (item.price * item.qty));
+
+            document.getElementById('checkoutTitle').innerText = `Pay Invoice Total: $${total}`;
+            document.getElementById('gatewayUsdt').innerText = storeData.wallets.usdt;
+            document.getElementById('gatewayLtc').innerText = storeData.wallets.ltc;
+            document.getElementById('gatewayBtc').innerText = storeData.wallets.btc;
+            
+            toggleModal('checkoutModal', true);
+        }
+
+        function submitOrderToAdmin() {
+            const contact = document.getElementById('buyerContact').value.trim();
+            const txid = document.getElementById('buyerTxid').value.trim();
+            const method = document.getElementById('buyerMethod').value;
+
+            if(!contact) return alert("Please enter your Telegram Username!");
+            if(!txid) return alert("Please enter your transaction TxID/Proof!");
+
+            let total = 0;
+            let itemsNames = [];
+            Object.values(cart).forEach(item => {
+                total += (item.price * item.qty);
+                itemsNames.push(`${item.name} (x${item.qty})`);
+            });
+
+            const itemsStr = itemsNames.join(', ');
+            const message = `⚡ New Store Purchase Order ⚡\n━━━━━━━━━━━━━━━\n👤 Buyer Contact: ${contact}\n📦 Ordered Set: ${itemsStr}\n💰 Total Price: $${total}\n💳 Pay Method: ${method}\n🔗 TxID/Proof: ${txid}\n━━━━━━━━━━━━━━━\nAdmin, verify and deliver the storage payload node.`;
+            
+            window.open(`https://t.me/MichealOFFICE365?text=${encodeURIComponent(message)}`, '_blank');
+            
+            document.getElementById('procProdName').innerText = itemsStr;
+            document.getElementById('procTrackId').innerText = "TX-" + Math.floor(100000 + Math.random() * 900000);
+            
+            document.getElementById('checkoutGate').style.display = 'none';
+            document.getElementById('processingScreen').style.display = 'block';
+            
+            cart = {}; 
+            updateCartBadge();
+        }
+
+        function submitCustomRequest() {
+            const contact = document.getElementById('reqContact').value.trim();
+            const country = document.getElementById('reqCountry').value.trim();
+            const domain = document.getElementById('reqDomain').value.trim() || "All / Any";
+            const desc = document.getElementById('reqDesc').value.trim() || "No extra spec";
+            const budget = document.getElementById('reqBudget').value.trim();
+
+            if(!contact || !country || !budget) {
+                return alert("Please fill all required custom parameters fields!");
+            }
+
+            const reqMessage = `🎯 NEW CUSTOM LEADS REQUEST 🎯\n━━━━━━━━━━━━━━━\n👤 Buyer Contact: ${contact}\n🌍 Target Country: ${country}\n🌐 Target Domain: ${domain}\n📝 Specifications: ${desc}\n💰 Offered Budget: $${budget}\n━━━━━━━━━━━━━━━\n⚠️ Status: Pending Admin Verification.`;
+            
+            window.open(`https://t.me/MichealOFFICE365?text=${encodeURIComponent(reqMessage)}`, '_blank');
+
+            document.getElementById('customLeadsForm').style.display = 'none';
+            document.getElementById('requestSuccessMsg').style.display = 'block';
+        }
+
+        function resetRequestForm() {
+            document.getElementById('customLeadsForm').reset();
+            document.getElementById('customLeadsForm').style.display = 'block';
+            document.getElementById('requestSuccessMsg').style.display = 'none';
+        }
+
+        function submitConfigRequest() {
+            const contact = document.getElementById('cfgContact').value.trim();
+            const name = document.getElementById('cfgName').value.trim();
+            const url = document.getElementById('cfgUrl').value.trim();
+            const desc = document.getElementById('cfgDesc').value.trim() || "No extra data captures";
+            const budget = document.getElementById('cfgBudget').value.trim();
+
+            if(!contact || !name || !url || !budget) {
+                return alert("Please fill all required configuration parameters fields!");
+            }
+
+            const cfgMessage = `🛠️ NEW CUSTOM CONFIG REQUEST 🛠️\n━━━━━━━━━━━━━━━\n👤 Buyer Contact: ${contact}\n⚙️ Tool Name: ${name}\n🔗 Target Website: ${url}\n📊 Requested Captures: ${desc}\n💰 Offered Budget: $${budget}\n━━━━━━━━━━━━━━━\n⚠️ Status: Pending Admin Framework Review.`;
+            
+            window.open(`https://t.me/MichealOFFICE365?text=${encodeURIComponent(cfgMessage)}`, '_blank');
+
+            document.getElementById('customConfigForm').style.display = 'none';
+            document.getElementById('configSuccessMsg').style.display = 'block';
+        }
+
+        function resetConfigForm() {
+            document.getElementById('customConfigForm').reset();
+            document.getElementById('customConfigForm').style.display = 'block';
+            document.getElementById('configSuccessMsg').style.display = 'none';
+        }
+
+        function submitGeneralRequest() {
+            const contact = document.getElementById('genContact').value.trim();
+            const name = document.getElementById('genName').value.trim();
+            const desc = document.getElementById('genDesc').value.trim();
+            const budget = document.getElementById('genBudget').value.trim();
+
+            if(!contact || !name || !desc || !budget) {
+                return alert("Please fill all required product request fields!");
+            }
+
+            const genMessage = `📦 NEW GENERAL PRODUCT REQUEST 📦\n━━━━━━━━━━━━━━━\n👤 Buyer Contact: ${contact}\n💎 Wanted Asset: ${name}\n📝 Description:\n${desc}\n💰 Offered Budget: $${budget}\n━━━━━━━━━━━━━━━\n⚠️ Status: Pending Central Admin Check.`;
+            
+            window.open(`https://t.me/MichealOFFICE365?text=${encodeURIComponent(genMessage)}`, '_blank');
+
+            document.getElementById('customGeneralForm').style.display = 'none';
+            document.getElementById('generalSuccessMsg').style.display = 'block';
+        }
+
+        function resetGeneralForm() {
+            document.getElementById('customGeneralForm').reset();
+            document.getElementById('customGeneralForm').style.display = 'block';
+            document.getElementById('generalSuccessMsg').style.display = 'none';
+        }
+
+        function renderTabs() {
+            const tabsNav = document.getElementById('tabs-navigation');
+            tabsNav.innerHTML = '';
+            
+            const categories = Object.keys(storeData.sections);
+            
+            categories.forEach(cat => {
+                let btn = document.createElement('button');
+                btn.className = `tab-btn ${cat === activeTab ? 'active' : ''}`;
+                btn.innerText = cat;
+                btn.onclick = () => {
+                    activeTab = cat;
+                    renderTabs();
+                    renderStorefront();
+                };
+                tabsNav.appendChild(btn);
+            });
+
+            let reqLeadsBtn = document.createElement('button');
+            reqLeadsBtn.className = `tab-btn request-leads-tab ${activeTab === 'CUSTOM_LEADS' ? 'active' : ''}`;
+            reqLeadsBtn.innerText = "🎯 CUSTOM LEADS REQUEST";
+            reqLeadsBtn.onclick = () => {
+                activeTab = 'CUSTOM_LEADS';
+                renderTabs();
+                renderStorefront();
+            };
+            tabsNav.appendChild(reqLeadsBtn);
+
+            let reqCfgBtn = document.createElement('button');
+            reqCfgBtn.className = `tab-btn request-config-tab ${activeTab === 'CUSTOM_CONFIG' ? 'active' : ''}`;
+            reqCfgBtn.innerText = "🛠️ CUSTOM CONFIG REQUEST";
+            reqCfgBtn.onclick = () => {
+                activeTab = 'CUSTOM_CONFIG';
+                renderTabs();
+                renderStorefront();
+            };
+            tabsNav.appendChild(reqCfgBtn);
+
+            let reqGenBtn = document.createElement('button');
+            reqGenBtn.className = `tab-btn request-general-tab ${activeTab === 'CUSTOM_GENERAL' ? 'active' : ''}`;
+            reqGenBtn.innerText = "🛒 CUSTOM PRODUCT REQUEST";
+            reqGenBtn.onclick = () => {
+                activeTab = 'CUSTOM_GENERAL';
+                renderTabs();
+                renderStorefront();
+            };
+            tabsNav.appendChild(reqGenBtn);
+        }
+
+        function isUnlimited(qty) {
+            if (qty === undefined || qty === null) return true;
+            const s = String(qty).trim().toLowerCase();
+            return s === 'unlimited' || s === 'unlim' || s === '';
+        }
+
+        function buildProductCardHtml(p, isFeatured = false) {
+            const priceHtml = p.oldPrice > p.price ? 
+                `<span class="old-price">$${p.oldPrice}</span> <span class="price">$${p.price}</span>` : 
+                `<span class="price">$${p.price}</span>`;
+
+            let stockHtml = "";
+            let actionBtnHtml = "";
+            const unlimited = isUnlimited(p.qty);
+
+            if (!p.inStock || (!unlimited && parseInt(p.qty) <= 0)) {
+                stockHtml = `<div class="stock-status out-stock">● Out Of Stock</div>`;
+                actionBtnHtml = `<button class="btn-action" disabled>SOLD OUT</button>`;
+            } else if (unlimited) {
+                stockHtml = `<div class="stock-status in-stock">● Unlimited Stock</div>`;
+                actionBtnHtml = `<button class="btn-action" onclick="addToCart('${p.id}', '${p.name}', ${p.price})">ADD TO BASKET</button>`;
+            } else {
+                stockHtml = `<div class="stock-status in-stock">● In Stock (${p.qty} left)</div>`;
+                actionBtnHtml = `<button class="btn-action" onclick="addToCart('${p.id}', '${p.name}', ${p.price})">ADD TO BASKET</button>`;
+            }
+
+            return `
+                <div class="product-card ${isFeatured ? 'featured-card' : ''}">
+                    ${isFeatured ? `<div class="featured-badge">Hot Pack</div>` : ''}
+                    <div>
+                        <h3>${p.name}</h3>
+                        <p>${p.desc}</p>
+                    </div>
+                    <div>
+                        <div class="price-container">${priceHtml}</div>
+                        ${stockHtml}
+                        <div class="qty-selector">
+                            <button class="qty-btn" onclick="changeQty('${p.id}', -1)">-</button>
+                            <input type="text" class="qty-input" id="qty-${p.id}" value="1" readonly>
+                            <button class="qty-btn" onclick="changeQty('${p.id}', 1)">+</button>
+                        </div>
+                        ${actionBtnHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderStorefront() {
+            const featuredGrid = document.getElementById('featured-products-grid');
+            const featuredWrapper = document.getElementById('featured-wrapper');
+            featuredGrid.innerHTML = '';
+            let hasFeatured = false;
+
+            const container = document.getElementById('store-front');
+            const requestSection = document.getElementById('request-section');
+            const configRequestSection = document.getElementById('config-request-section');
+            const generalRequestSection = document.getElementById('general-request-section');
+            
+            container.innerHTML = '';
+
+            if (activeTab === 'CUSTOM_LEADS') {
+                requestSection.className = 'store-section active';
+                configRequestSection.className = 'store-section';
+                generalRequestSection.className = 'store-section';
+                featuredWrapper.style.display = 'none';
+                return;
+            } else if (activeTab === 'CUSTOM_CONFIG') {
+                configRequestSection.className = 'store-section active';
+                requestSection.className = 'store-section';
+                generalRequestSection.className = 'store-section';
+                featuredWrapper.style.display = 'none';
+                return;
+            } else if (activeTab === 'CUSTOM_GENERAL') {
+                generalRequestSection.className = 'store-section active';
+                requestSection.className = 'store-section';
+                configRequestSection.className = 'store-section';
+                featuredWrapper.style.display = 'none';
+                return;
+            } else {
+                requestSection.className = 'store-section';
+                configRequestSection.className = 'store-section';
+                generalRequestSection.className = 'store-section';
+            }
+
+            for (const [secName, products] of Object.entries(storeData.sections)) {
+                products.forEach(p => {
+                    if(p.featured) {
+                        hasFeatured = true;
+                        featuredGrid.innerHTML += buildProductCardHtml(p, true);
+                    }
+                });
+
+                if(secName !== activeTab || products.length === 0) continue;
+
+                let sectionDom = document.createElement('section');
+                sectionDom.className = 'store-section active';
+                sectionDom.innerHTML = `<h2 class="section-title">${secName}</h2>`;
+                
+                let grid = document.createElement('div');
+                grid.className = 'products-grid';
+                
+                products.forEach(p => { grid.innerHTML += buildProductCardHtml(p, false); });
+
+                sectionDom.appendChild(grid);
+                container.appendChild(sectionDom);
+            }
+
+            featuredWrapper.style.display = hasFeatured ? 'block' : 'none';
+        }
+
+        function renderAdminControls() {
+            document.getElementById('adminUsdtWallet').value = storeData.wallets.usdt;
+            document.getElementById('adminLtcWallet').value = storeData.wallets.ltc;
+            document.getElementById('adminBtcWallet').value = storeData.wallets.btc;
+            
+            const select = document.getElementById('prodSectionSelect');
+            select.innerHTML = '';
+            Object.keys(storeData.sections).forEach(s => select.innerHTML += `<option value="${s}">${s}</option>`);
+
+            const catTable = document.getElementById('adminCategoryTable');
+            catTable.innerHTML = '';
+            Object.keys(storeData.sections).forEach(catName => {
+                catTable.innerHTML += `
+                    <tr style="border-bottom:1px solid #334155;">
+                        <td style="padding:6px; font-weight:bold;">${catName}</td>
+                        <td style="padding:6px; text-align:right; display:flex; gap:5px; justify-content:flex-end;">
+                            <button class="admin-table-btn" style="background:var(--warning); color:#000;" onclick="renameCategory('${catName}')">Rename</button>
+                            <button class="admin-table-btn" style="background:var(--danger); color:#fff;" onclick="deleteCategory('${catName}')">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            const table = document.getElementById('adminInventoryTable');
+            table.innerHTML = `
+                <tr style="background:var(--bg-main); text-align:center; font-weight:bold;">
+                    <td style="padding:8px;">Name</td>
+                    <td style="padding:8px;">Price ($)</td>
+                    <td style="padding:8px;">Old Price ($)</td>
+                    <td style="padding:8px;">Stock Qty</td>
+                    <td style="padding:8px;">Status</td>
+                    <td style="padding:8px;">Featured</td>
+                    <td style="padding:8px;">Action</td>
+                </tr>
+            `;
+
+            for (const [secName, products] of Object.entries(storeData.sections)) {
+                products.forEach(p => {
+                    const currentQty = p.qty !== undefined ? p.qty : "unlimited";
+                    table.innerHTML += `
+                        <tr style="border-bottom:1px solid #334155; text-align:center;">
+                            <td style="padding:5px; text-align:left; white-space: pre-line;">${p.name}</td>
+                            <td style="padding:5px;"><input type="number" value="${p.price}" style="width:55px; margin:0; padding:2px;" onchange="updateAdminItem('${p.id}', 'price', this.value)"></td>
+                            <td style="padding:5px;"><input type="number" value="${p.oldPrice || 0}" style="width:55px; margin:0; padding:2px;" onchange="updateAdminItem('${p.id}', 'oldPrice', this.value)"></td>
+                            <td style="padding:5px;"><input type="text" value="${currentQty}" style="width:85px; margin:0; padding:2px; text-align:center;" onchange="updateAdminItem('${p.id}', 'qty', this.value)"></td>
+                            <td style="padding:5px;"><input type="checkbox" ${p.inStock ? 'checked' : ''} onchange="updateAdminItem('${p.id}', 'inStock', this.checked)"></td>
+                            <td style="padding:5px;"><input type="checkbox" ${p.featured ? 'checked' : ''} onchange="updateAdminItem('${p.id}', 'featured', this.checked)"></td>
+                            <td style="padding:5px;"><button style="background:var(--danger); color:#fff; border:none; padding:3px 6px; border-radius:4px; cursor:pointer;" onclick="deleteProduct('${p.id}')">Delete</button></td>
+                        </tr>
+                    `;
+                });
+            }
+        }
+
+        function createNewSection() {
+            const name = document.getElementById('newSecName').value.trim().toUpperCase();
+            if(!name) return;
+            if(!storeData.sections[name]) {
+                storeData.sections[name] = [];
+                activeTab = name;
+            }
+            document.getElementById('newSecName').value = '';
+            saveToStorage();
+        }
+
+        function renameCategory(oldName) {
+            const newName = prompt(`Enter new name for category "${oldName}":`, oldName);
+            if (!newName || newName.trim() === "" || newName.trim().toUpperCase() === oldName) return;
+            
+            const formattedName = newName.trim().toUpperCase();
+            if (storeData.sections[formattedName]) return alert("A category with this name already exists!");
+
+            storeData.sections[formattedName] = storeData.sections[oldName];
+            delete storeData.sections[oldName];
+            if (activeTab === oldName) activeTab = formattedName;
+            saveToStorage();
+        }
+
+        function deleteCategory(catName) {
+            if (!confirm(`Are you sure you want to delete "${catName}"? This will permanently delete all products inside it.`)) return;
+            storeData.sections[catName].forEach(p => { if(cart[p.id]) delete cart[p.id]; });
+            delete storeData.sections[catName];
+            updateCartBadge();
+            saveToStorage();
+        }
+
+        function addNewProduct() {
+            const sec = document.getElementById('prodSectionSelect').value;
+            const title = document.getElementById('prodTitle').value.trim();
+            const desc = document.getElementById('prodDesc').value; 
+            const price = parseInt(document.getElementById('prodPrice').value) || 10;
+            const oldPrice = parseInt(document.getElementById('prodOldPrice').value) || 0;
+            const inStock = document.getElementById('prodInStock').checked;
+            const featured = document.getElementById('prodFeatured').checked;
+            
+            let rawQty = document.getElementById('prodStockQty').value.trim();
+            let qty = isUnlimited(rawQty) ? "unlimited" : rawQty;
+
+            if(!title) return alert("Product name is required.");
+            if(!sec) return alert("Please create or choose a category first.");
+            
+            storeData.sections[sec].push({ 
+                id: "p_" + Date.now(), name: title, desc: desc, price: price, oldPrice: oldPrice, inStock: inStock, featured: featured, qty: qty
+            });
+
+            document.getElementById('prodTitle').value = '';
+            document.getElementById('prodDesc').value = '';
+            document.getElementById('prodPrice').value = '';
+            document.getElementById('prodOldPrice').value = '';
+            document.getElementById('prodFeatured').checked = false;
+            document.getElementById('prodStockQty').value = 'unlimited';
+            saveToStorage();
+        }
+
+        function updateAdminItem(id, field, value) {
+            for(const prods of Object.values(storeData.sections)) {
+                let p = prods.find(i => i.id === id);
+                if(p) {
+                    if(field === 'price' || field === 'oldPrice') {
+                        p[field] = parseInt(value) || 0;
+                    } else if (field === 'qty') {
+                        p[field] = isUnlimited(value) ? "unlimited" : value;
+                    } else { p[field] = value; }
+                    break;
+                }
+            }
+            saveToStorage();
+        }
+
+        function deleteProduct(id) {
+            if(!confirm("Are you sure you want to delete this item?")) return;
+            for(const sec of Object.keys(storeData.sections)) {
+                storeData.sections[sec] = storeData.sections[sec].filter(i => i.id !== id);
+            }
+            if(cart[id]) delete cart[id];
+            updateCartBadge();
+            saveToStorage();
+        }
+
+        document.getElementById('adminUsdtWallet').addEventListener('input', (e) => { storeData.wallets.usdt = e.target.value; localStorage.setItem('spammers_secure_db', JSON.stringify(storeData)); });
+        document.getElementById('adminLtcWallet').addEventListener('input', (e) => { storeData.wallets.ltc = e.target.value; localStorage.setItem('spammers_secure_db', JSON.stringify(storeData)); });
+        document.getElementById('adminBtcWallet').addEventListener('input', (e) => { storeData.wallets.btc = e.target.value; localStorage.setItem('spammers_secure_db', JSON.stringify(storeData)); });
+
+        checkSecretRoute();
+        renderTabs();
+        renderStorefront();
+        renderAdminControls();
+    </script>
+</body>
+</html>
